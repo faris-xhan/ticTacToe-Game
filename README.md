@@ -1,2 +1,2 @@
-# ticTocToe-Game
+# ticTacToe-Game
 I made this :) 
