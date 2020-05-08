@@ -5,6 +5,7 @@ from time import sleep
 def refresh_screen(instance):
 	os.system('cls')
 	instance.displayBaord()
+	
 def coinToss(player1, player2):
 	toss = ['Head', 'Tail']
 	while True:
@@ -19,22 +20,23 @@ def coinToss(player1, player2):
 			else:
 				print(f'{player2} Wins the toss')
 				return 0 
-		else:
-			print('Please select the correct player')
+		#else:
+		print('Please select the correct player')
 
 def playAgain(choice):
 	if choice.lower() in ['yes','y','ye']:
 		return True
-	else:
-		return False
+	#else:
+	return False
 		
 def correctChoice(player,symbol):
 	while True:
 		choice_no = input(f'{player}[{symbol}] Please Choose 1 - 9 > ')
 		if choice_no.isdigit() and int(choice_no) < 10 and int(choice_no) > 0:
 			return choice_no
-		else:
-			print('Please Select a Valid Choice')
+		#else:
+		print('Please Select a Valid Choice')
+
 class Board:
 	def __init__(self, playerX, PlayerO):
 		self.cell = [" "]*10
@@ -52,11 +54,13 @@ class Board:
 		print(" --------- ".center(40))
 		print(" {} | {} | {} ".format(*self.cell[7:]).center(40))
 		print('\n')
+	
 	def updateBoard(self, choice_no, player):
 		if self.cell[choice_no] == ' ':
 			self.cell[choice_no] = player
 			return 	True 
-		else: return False
+		#else: 
+		return False
 	def isWinner(self,player):
 		possiblities = [
 			[1,2,3],
@@ -69,16 +73,21 @@ class Board:
 			[3,5,7]
 		]
 		for row in possiblities:
-			result = True
-			for num in row: #[1,2,3]
-				if self.cell[num] != player:
-					result =  False
-			if result==True:
-				return True
-		return False
+			if (self.cell[row[0] == player and
+		        self.cell[row[1] == player and
+		        self.cell[row[1] == player):
+			    return True
+	        return False
+		#		   
+		#	result = True
+		#	for num in row: #[1,2,3]
+		#		if self.cell[num] != player:
+		#			result =  False
+		#	if result==True:     # if result:
+		#		return True
+		#return False
 	def reset(self):
 		self.cell = [" "]*10
-
 
 
 playerX = input('Enter the Player-X name: ').title()
@@ -86,12 +95,14 @@ playerO = input('Enter the Player-O name: ').title()
 board = Board(playerX, playerO)
 toss_Winner = coinToss(playerX, playerO)
 if toss_Winner:
-	player1 = playerX
-	player2 = playerO
+	#player1 = playerX
+	#player2 = playerO
+    player1, player2 = playerX, playerO  # O looks very similar to 0 (zero) 						  
 else:
-	player1 = playerO
-	player2 = playerX
-sleep(1)
+	#player1 = playerO
+	#player2 = playerX
+	player1, player2 = playerO, playerX
+sleep(1)                                 # really necessary?
 refresh_screen(board)
 i = 1 
 while i<10:
@@ -105,7 +116,7 @@ while i<10:
 	refresh_screen(board)
 	if board.isWinner('X'):
 		print(f'\n Hurray {player1} Won! \n')
-		choice = input('Would you like to play again? (Y,N) ')
+		choice = input('Would you like to play again? (Y,N) ')      # make a function for that
 		if playAgain(choice):
 			i = 0
 			board.reset()
